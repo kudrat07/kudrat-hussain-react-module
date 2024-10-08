@@ -1,0 +1,137 @@
+.main__para,
+.footer__para {
+  color: #292929;
+  text-align: center;
+  line-height: 32px;
+  font-size: 22px;
+}
+/* SIDEBAR COMPONENT */
+.sidebar {
+  width: 30%;
+  height: 100vh;
+}
+.notes{
+  position: relative;
+  top: 150px;
+  height: calc(100vh - 150px);
+  overflow-y: auto;
+  scroll-behavior: smooth;
+
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+ ::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0.63);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #fff;     
+  border-radius: 4.5px;        
+  border: 3px solid #fff; 
+} 
+
+
+.sidebar__title--container{
+  position: fixed;
+  background-color: #fff;
+  height: 150px;
+}
+.sidebar__title{
+  position: relative;
+  left: 25%;
+  top: 40%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 35px;
+}
+
+.group__container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 72px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+  z-index: -1;
+  cursor: pointer;
+}
+.circle {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 40px;
+  margin-right: 24px;
+}
+.group__title--logo {
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.btn {
+  background-color: #16008b;
+  color: #fff;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+  border: none;
+  position: fixed;
+  bottom: 2%;
+  left: 16%;
+  font-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  cursor: pointer;
+}
+/* MAIN COMPONENT */
+.main {
+  background-color: #dae5f5;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.main__img {
+  width: 600px;
+}
+.main__text--wrapper {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+}
+.main__title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+.main__para {
+  width: 650px;
+  font-weight: 500;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top: 72px;
+}
+.footer__logo {
+  margin-right: 6px;
+}
+.footer__para {
+  font-weight: 400;
+}

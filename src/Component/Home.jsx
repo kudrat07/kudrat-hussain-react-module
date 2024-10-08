@@ -1,10 +1,10 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import "../Main.css";
+import "./home.css";
 import mainLogo from "../assets/mainLogo.png";
 import lockLogo from "../assets/Vector.png";
 
-const Main = () => {
+const Home = () => {
   return (
     <>
       <div className="main">
@@ -28,4 +28,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Home;
