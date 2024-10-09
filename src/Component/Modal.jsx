@@ -6,8 +6,25 @@ function Modal({
   setColor,
   setInputValue,
   inputValue,
+  color,
   createNotes,
 }) {
+
+
+  const handleCreatebtn = () => {
+    if (!inputValue.trim()) {
+      alert("Please enter a group name");
+      return;
+    }
+    
+    if (!color) {
+      alert("Please select a color");
+      return;
+    }
+
+
+    createNotes();
+  };
 
   return (
     <>
@@ -66,7 +83,7 @@ function Modal({
               className="color--6 color"
             ></div>
           </div>
-          <button onClick={createNotes} className="modal__btn">
+          <button onClick={handleCreatebtn} className="modal__btn">
             Create
           </button>
         </div>

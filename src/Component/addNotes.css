@@ -23,11 +23,14 @@
   align-items: center;
   justify-content: center;
   margin-right: 24px;
-  background-color: green;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 500;
 }
 .nav__title {
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 24px;
   font-weight: 500;
 }
 .notes__content{
@@ -96,11 +99,15 @@
   right: 48px;
   border: none;
   bottom: 32px;
-  /* margin-right: 8px; */
+  background: none;
+  outline: none;
+  border: none;
+  
 }
 .arrow__logo{
   height: 30px;
   width: 30px;
+  
 }
 
 

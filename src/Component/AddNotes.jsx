@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
 import "./addNotes.css";
 import arrow from "../assets/Arrow.png";
+import vector from "../assets/vector__colorful.png"
 import { useState } from "react";
 
-const AddNotes = ({ heading, initialNotes }) => {
+const AddNotes = ({ heading, initialNotes, setNotes, notesIndex, color, firstLetter }) => { 
   const [textAreaInput, setTextAreaInput] = useState("");
-  const [groupNotes, setGroupNotes] = useState(initialNotes || []); // Initialize with the passed notes
-
   const handleButton = () => {
     if (textAreaInput.trim() !== "") {
       const newNote = {
@@ -14,14 +13,19 @@ const AddNotes = ({ heading, initialNotes }) => {
         time: getFormattedTime(),
       };
 
-      // Update the notes for this group
-      const updatedNotes = [...groupNotes, newNote];
-      setGroupNotes(updatedNotes);
+      setNotes(prevNotes => {
+        const newState = [...prevNotes];
+        if (newState[notesIndex]) { 
+          if (!newState[notesIndex].notes) {
+            newState[notesIndex].notes = []; 
+          }
+          newState[notesIndex].notes.push(newNote); 
+          localStorage.setItem("notes", JSON.stringify(newState)); 
+        }
+        return newState;
+      });
 
-      // Optionally, you can save this updated notes array back to localStorage
-      // You need to find the correct group and update its notes in the sidebar's notes state
-
-      setTextAreaInput("");
+      setTextAreaInput(""); 
     }
   };
 
@@ -57,44 +61,42 @@ const AddNotes = ({ heading, initialNotes }) => {
   };
 
   return (
-    <>
-      <div className="container">
-        <nav className="navbar">
-          <div className="nav__container">
-            <div className="nav__circle">P</div>
-            <h3 className="nav__title">{heading}</h3>
-          </div>
-        </nav>
-        <div className="notes__content">
-          {groupNotes.map((map, index) => (
-            <div key={index}>
-              <div className="notes__content--description">
-                <p className="notes__para">{map.text}</p>
-                <div className="date__wrapper">
-                  <p className="date">{map.time}</p>
-                </div>
+    <div className="container">
+      <nav className="navbar">
+        <div className="nav__container">
+          <div className="nav__circle" 
+          style={{backgroundColor:color}}>{firstLetter}</div>
+          <h3 className="nav__title">{heading}</h3>
+        </div>
+      </nav>
+      <div className="notes__content">
+        {initialNotes.map((map, index) => (
+          <div key={index}>
+            <div className="notes__content--description">
+              <p className="notes__para">{map.text}</p>
+              <div className="date__wrapper">
+                <p className="date">{map.time}</p>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="textarea__container">
-          <div className="textarea__wrapper">
-            <textarea
-              name="name"
-              id="message"
-              placeholder="Enter your text here........"
-              className="text"
-              value={textAreaInput}
-              onChange={(e) => setTextAreaInput(e.target.value)}
-            />
-            <button className="textarea__btn" onClick={handleButton}>
-              <img className="arrow__logo" src={arrow} alt="arrow__img" />
-            </button>
           </div>
+        ))}
+      </div>
+
+      <div className="textarea__container">
+        <div className="textarea__wrapper">
+          <textarea
+            placeholder="Enter your text here........"
+            className="text"
+            value={textAreaInput}
+            onChange={(e) => setTextAreaInput(e.target.value)}
+          />
+          <button className="textarea__btn" onClick={handleButton}>
+            
+          {!textAreaInput ?   <img className="arrow__logo" src={arrow} alt="arrow__img" /> : <img className="arrow__logo" src={vector} /> }
+          </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

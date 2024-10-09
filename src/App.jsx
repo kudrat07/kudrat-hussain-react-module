@@ -8,8 +8,10 @@ const App = () => {
   const [currentComponent, setCurrentComponent] = useState("Home");
   const [heading, setHeading] = useState("");
   const [notes, setNotes] = useState([]);
+  const [notesIndex, setNotesIndex] = useState(null);
+  const [color, setColor] = useState();
+  const [firstLetter, setFirstLetter] = useState("")
 
-  // Load notes from localStorage when the app first loads
   useEffect(() => {
     const savedNotes = localStorage.getItem("notes");
     if (savedNotes) {
@@ -17,36 +19,37 @@ const App = () => {
     }
   }, []);
 
-  // Function to change the current component and heading
-  const changeComponent = (component, heading = "", groupNotes = []) => {
+  const changeComponent = (component, heading = "",color ,
+    firstLetter,index) => {
     setCurrentComponent(component);
     setHeading(heading);
-    
-    // Update notes for the specific group if provided
-    if (groupNotes.length > 0) {
-      setNotes(prevNotes => {
-        // Find the index of the group being updated
-        const updatedNotes = [...prevNotes];
-        const groupIndex = updatedNotes.findIndex(note => note.inputValue === heading);
-        if (groupIndex !== -1) {
-          updatedNotes[groupIndex].notes = groupNotes; // Update the notes of that group
-        }
-        return updatedNotes;
-      });
-    }
+    setNotesIndex(index);
+    setColor(color)
+    setFirstLetter(firstLetter)
   };
+
+  console.log(firstLetter);
+
 
   return (
     <div className="app__container">
       <Sidebar
         setCurrentComponent={changeComponent}
-        notes={notes} // Pass the notes state to Sidebar
+        notes={notes}
+        setNotes={setNotes}
       />
       
       {currentComponent === "Home" ? (
         <Home className="main" />
       ) : (
-        <AddNotes heading={heading} initialNotes={notes.find(note => note.inputValue === heading)?.notes || []} /> // Pass the initial notes for the selected group
+        <AddNotes 
+          heading={heading} 
+          initialNotes={notes[notesIndex]?.notes || []} 
+          setNotes={setNotes} 
+          notesIndex={notesIndex} 
+          color={color}
+          firstLetter={firstLetter}
+        />
       )}
     </div>
   );
