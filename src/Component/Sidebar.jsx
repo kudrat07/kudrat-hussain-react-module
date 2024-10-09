@@ -3,7 +3,7 @@ import "./home.css";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 
-const Sidebar = ({setCurrentComponent}) => {
+const Sidebar = ({ setCurrentComponent }) => {
   const [showModal, setShowModal] = useState(false);
   const [color, setColor] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -16,29 +16,31 @@ const Sidebar = ({setCurrentComponent}) => {
     }
   }, []);
 
+  const [isActive, setIsActive] = useState(false);
+
+  const handleClick = (index) => {
+    setIsActive(index);
+    setCurrentComponent("AddNotes", notes[index].inputValue, notes[index].notes || []); // Pass group title and its notes
+  };
+
   function getFirstLetter(inputValue) {
     const words = inputValue.trim().split(" ");
-    if (words.length === 1) {
-      return words[0].charAt(0).toUpperCase();
-    } else {
-      const firstLetter = words[0].charAt(0).toUpperCase();
-      const lastLetter = words[words.length - 1].charAt(0).toUpperCase();
-      return firstLetter + lastLetter;
-    }
+    return words.length === 1
+      ? words[0].charAt(0).toUpperCase()
+      : words[0].charAt(0).toUpperCase() + words[words.length - 1].charAt(0).toUpperCase();
   }
 
   function createNotes() {
     const addItem = {
-      color: color,
-      inputValue: inputValue,
+      color,
+      inputValue,
       firstLetter: getFirstLetter(inputValue),
+      notes: [], // Initialize with an empty notes array
     };
 
     const updatedNotes = [...notes, addItem];
     setNotes(updatedNotes);
-
     localStorage.setItem("notes", JSON.stringify(updatedNotes));
-
     setColor("");
     setInputValue("");
     setShowModal(false);
@@ -52,23 +54,22 @@ const Sidebar = ({setCurrentComponent}) => {
         </div>
 
         <div className="notes">
-          {notes.map((map) => {
-            return (
-              <>
-                <div className="group__container" onClick={() => setCurrentComponent("AddNotes")}>
-                  <div className="circle__container">
-                    <div
-                      className="circle"
-                      style={{ backgroundColor: map.color }}
-                    >
-                      <p className="group__title--logo">{map.firstLetter}</p>
-                    </div>
+          {notes.map((map, index) => (
+            <div
+              key={index}
+              className={`test ${isActive === index ? "active" : ""}`}
+              onClick={() => handleClick(index)}
+            >
+              <div className="group__container">
+                <div className="circle__container">
+                  <div className="circle" style={{ backgroundColor: map.color }}>
+                    <p className="group__title--logo">{map.firstLetter}</p>
                   </div>
-                  <h3 className="group__title">{map.inputValue}</h3>
                 </div>
-              </>
-            );
-          })}
+                <h3 className="group__title">{map.inputValue}</h3>
+              </div>
+            </div>
+          ))}
         </div>
         <div className="btn__wrapper">
           <button className="btn" onClick={() => setShowModal(true)}>
@@ -85,7 +86,6 @@ const Sidebar = ({setCurrentComponent}) => {
           />
         )}
       </div>
-
     </>
   );
 };
