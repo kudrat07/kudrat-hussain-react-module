@@ -3,7 +3,7 @@ import "./home.css";
 import Modal from "./Modal";
 import { useState, useEffect } from "react";
 
-const Sidebar = ({ setCurrentComponent, notes, setNotes }) => {
+const Sidebar = ({ setCurrentComponent, notes, setNotes, setBtnStatus }) => {
   const [showModal, setShowModal] = useState(false);
   const [color, setColor] = useState("");
   const [inputValue, setInputValue] = useState("");
@@ -22,6 +22,7 @@ const Sidebar = ({ setCurrentComponent, notes, setNotes }) => {
   const handleClick = (index) => {
     setIsActive(index);
     const selectedGroup = notes[index];
+    setBtnStatus(false)
 
     setCurrentComponent("AddNotes", selectedGroup.inputValue, selectedGroup.color, selectedGroup.firstLetter,  index);
   };
@@ -95,3 +96,4 @@ const Sidebar = ({ setCurrentComponent, notes, setNotes }) => {
 };
 
 export default Sidebar;
+// mycode

@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import Home from "./Component/Home";
 import Sidebar from "./Component/Sidebar";
@@ -10,7 +10,22 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [notesIndex, setNotesIndex] = useState(null);
   const [color, setColor] = useState();
-  const [firstLetter, setFirstLetter] = useState("")
+  const [firstLetter, setFirstLetter] = useState("");
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [btnStatus, setBtnStatus] = useState(false);
+
+  // Resize handler
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
     const savedNotes = localStorage.getItem("notes");
@@ -19,37 +34,61 @@ const App = () => {
     }
   }, []);
 
-  const changeComponent = (component, heading = "",color ,
-    firstLetter,index) => {
+  useEffect(() => {
+    if (btnStatus) {
+      setCurrentComponent("Home");
+      setBtnStatus(false);
+    }
+  }, [btnStatus]);
+
+  const changeComponent = (
+    component,
+    heading = "",
+    color,
+    firstLetter,
+    index
+  ) => {
     setCurrentComponent(component);
     setHeading(heading);
     setNotesIndex(index);
-    setColor(color)
-    setFirstLetter(firstLetter)
+    setColor(color);
+    setFirstLetter(firstLetter);
   };
-
-  console.log(firstLetter);
-
 
   return (
     <div className="app__container">
-      <Sidebar
-        setCurrentComponent={changeComponent}
-        notes={notes}
-        setNotes={setNotes}
-      />
-      
+      {(currentComponent !== "AddNotes" || screenSize > 576) && (
+        <Sidebar
+          setCurrentComponent={changeComponent}
+          notes={notes}
+          setNotes={setNotes}
+          setBtnStatus={setBtnStatus}
+        />
+      )}
+
       {currentComponent === "Home" ? (
         <Home className="main" />
-      ) : (
-        <AddNotes 
-          heading={heading} 
-          initialNotes={notes[notesIndex]?.notes || []} 
-          setNotes={setNotes} 
-          notesIndex={notesIndex} 
+      ) : screenSize <= 576 && currentComponent === "AddNotes" ? (
+        <AddNotes
+          heading={heading}
+          initialNotes={notes[notesIndex]?.notes || []}
+          setNotes={setNotes}
+          notesIndex={notesIndex}
           color={color}
           firstLetter={firstLetter}
+          setBtnStatus={setBtnStatus}
         />
+      ) : (
+        currentComponent === "AddNotes" && (
+          <AddNotes
+            heading={heading}
+            initialNotes={notes[notesIndex]?.notes || []}
+            setNotes={setNotes}
+            notesIndex={notesIndex}
+            color={color}
+            firstLetter={firstLetter}
+          />
+        )
       )}
     </div>
   );

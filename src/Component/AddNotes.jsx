@@ -1,11 +1,14 @@
 /* eslint-disable react/prop-types */
 import "./addNotes.css";
 import arrow from "../assets/Arrow.png";
-import vector from "../assets/vector__colorful.png"
+import vector from "../assets/vector__colorful.png";
+import backBtn from "../assets/bck_btn.png";
 import { useState } from "react";
 
-const AddNotes = ({ heading, initialNotes, setNotes, notesIndex, color, firstLetter }) => { 
+const AddNotes = ({ heading, initialNotes, setNotes, notesIndex, color, firstLetter, setBtnStatus }) => { 
   const [textAreaInput, setTextAreaInput] = useState("");
+
+  
   const handleButton = () => {
     if (textAreaInput.trim() !== "") {
       const newNote = {
@@ -64,6 +67,9 @@ const AddNotes = ({ heading, initialNotes, setNotes, notesIndex, color, firstLet
     <div className="container">
       <nav className="navbar">
         <div className="nav__container">
+        <button className="nav__btn" onClick={() => setBtnStatus(true)}>
+          <img src={backBtn} alt="arrow btn" />
+        </button>
           <div className="nav__circle" 
           style={{backgroundColor:color}}>{firstLetter}</div>
           <h3 className="nav__title">{heading}</h3>
@@ -101,3 +107,4 @@ const AddNotes = ({ heading, initialNotes, setNotes, notesIndex, color, firstLet
 };
 
 export default AddNotes;
+// my code

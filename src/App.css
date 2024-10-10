@@ -6,6 +6,11 @@
   box-sizing: border-box;
   font-family: 'roboto';
 }
-.app__container{
+.app__container {
   display: flex;
+  height: 100vh; /* Full height */
 }
+
+
+
+

@@ -11,7 +11,14 @@
 .nav__container {
   display: flex;
   align-items: center;
-  margin-left: 20px;
+  margin-left: 16px;
+}
+.nav__btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin-right: 8px;
+  display: none;
 }
 .nav__circle {
   width: 56px;
@@ -22,7 +29,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-right: 24px;
+  margin-right: 16px;
   flex-shrink: 0;
   color: #fff;
   font-size: 24px;
@@ -33,57 +40,57 @@
   font-size: 24px;
   font-weight: 500;
 }
-.notes__content{
-    background-color: #DAE5F5;
-    height: calc(100vh - 98px - 200px);
-    overflow-y: auto;
+.notes__content {
+  background-color: #dae5f5;
+  height: calc(100vh - 98px - 200px);
+  overflow-y: auto;
 }
-.notes__content--description{
-    border-radius: 8px;
-    background-color: #fff;
-    width: 95%;
-    margin: 24px auto;
-    padding: 24px 30px 32px 24px;
-    position: relative;
+.notes__content--description {
+  border-radius: 8px;
+  background-color: #fff;
+  width: 95%;
+  margin: 24px auto;
+  padding: 24px 30px 32px 24px;
+  position: relative;
 }
-.notes__para{
-    font-size: 18px;
-    font-weight: 400;
-    margin-bottom: 24px;
-    line-height: 28px;
+.notes__para {
+  font-size: 18px;
+  font-weight: 400;
+  margin-bottom: 24px;
+  line-height: 28px;
 }
-.date__wrapper{
-    position: absolute;
-    right: 40px;
-    bottom: 1px;
+.date__wrapper {
+  position: absolute;
+  right: 30px;
+  bottom: 5px;
 }
-.date{
-    font-size: 18px;
-    font-weight: 500;
-    color: #353535;
+.date {
+  font-size: 18px;
+  font-weight: 500;
+  color: #353535;
 }
-.dot{
-    margin: 0 8px;
-    font-weight: 700;
-    font-size: 50px;
+.dot {
+  margin: 0 8px;
+  font-weight: 700;
+  font-size: 50px;
 }
-.textarea__container{
+.textarea__container {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background-color: #001F8B;
+  background-color: #001f8b;
   height: 200px;
 }
-.textarea__wrapper{
+.textarea__wrapper {
   margin: 16px auto;
   width: 96%;
   height: 170px;
 }
 
-.text{
+.text {
   resize: none;
   width: 100%;
-  color: #9A9A9A;
+  color: #9a9a9a;
   box-sizing: border-box;
   font-size: 28px;
   padding: 12px 24px;
@@ -93,7 +100,7 @@
   height: 100%;
   border-radius: 5px;
 }
-.textarea__btn{
+.textarea__btn {
   cursor: pointer;
   position: absolute;
   right: 48px;
@@ -102,12 +109,17 @@
   background: none;
   outline: none;
   border: none;
-  
 }
-.arrow__logo{
+.arrow__logo {
   height: 30px;
   width: 30px;
-  
 }
 
-
+@media (max-width: 576px) {
+  .textarea__container {
+    position: absolute;
+  }
+  .nav__btn {
+    display: flex;
+  }
+}
